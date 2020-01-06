@@ -1,0 +1,25 @@
+name: Actions Ruby
+
+on: [push]
+
+jobs:
+  build:
+    name: >-
+      ${{ matrix.os }}  ${{ matrix.ruby }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ ubuntu-16.04, ubuntu-18.04, macos-latest ]
+        ruby: [ 2.3, 2.4, 2.5, 2.6, 2.7, jruby, truffleruby ]
+    runs-on: ${{ matrix.os }}
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    - name: Ruby Install
+      uses: eregon/use-ruby-action@master
+      with:
+        ruby-version: ${{ matrix.ruby }}
+
+    - name: Ruby Info
+      run:  ruby ruby_info.rb
