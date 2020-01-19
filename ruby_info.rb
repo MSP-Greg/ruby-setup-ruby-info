@@ -9,7 +9,7 @@ module VersInfo
 
   BAD_SIGNAL_LIST = begin
     code = <<-HEREDOC
-      data = ''.dup
+      data = []
 
       begin
         Signal.trap('TERM') {  }
@@ -18,11 +18,8 @@ module VersInfo
       end
 
       list = Signal.list
-      data << 'HUP '  unless list.key? 'HUP'
-      data << 'INT '  unless list.key? 'INT'
-      data << 'USR1 ' unless list.key? 'USR1'
-      data << 'USR2 ' unless list.key? 'USR2'
-      puts data
+      %w[HUP INT USR1 USR2].each { |s| data << s unless list.key? s }
+      puts data.join ' '
     HEREDOC
     pipe = IO.popen RbConfig.ruby, 'r+'
     pid = pipe.pid
@@ -31,7 +28,7 @@ module VersInfo
     begin
       Process.kill :TERM, pid
       pipe.read.strip.split(' ').sort.map(&:to_sym)
-    rescue Errno::EINVAL
+    rescue Errno::EINVAL, NotImplementedError
       "#{pipe.read.strip} TERM".split(' ').sort.map(&:to_sym)
     ensure
       Process.wait pid
