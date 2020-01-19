@@ -13,19 +13,17 @@ jobs:
         ruby: [ 2.3, 2.4, 2.5, 2.6, 2.7, jruby, truffleruby ]
         exclude:
           - os:   windows-latest
-            ruby: jruby
-          - os:   windows-latest
             ruby: truffleruby
           
     runs-on: ${{ matrix.os }}
     steps:
-    - name: Checkout
-      uses: actions/checkout@v2
+      - name: Checkout
+        uses: actions/checkout@v2
 
-    - name: Ruby Install
-      uses: eregon/use-ruby-action@master
-      with:
-        ruby-version: ${{ matrix.ruby }}
+      - name: Ruby Install
+        uses: eregon/use-ruby-action@master
+        with:
+          ruby-version: ${{ matrix.ruby }}
 
-    - name: Ruby Info
-      run:  ruby ruby_info.rb
+      - name: Ruby Info
+        run:  ruby ruby_info.rb
