@@ -62,6 +62,9 @@ module VersInfo
         RbConfig::CONFIG["CC_VERSION_MESSAGE"][/\A.+?\n/].strip : 'unknown'
       puts "        gcc info: #{gcc}"
       puts "RbConfig::TOPDIR: #{RbConfig::TOPDIR}"
+      unless File.realpath(RbConfig::TOPDIR) == RbConfig::TOPDIR
+        puts "  above realpath: #{File.realpath RbConfig::TOPDIR}"
+      end
       puts
       first('rubygems'  , 'Gem::VERSION'  , 2)  { Gem::VERSION     }
       puts
