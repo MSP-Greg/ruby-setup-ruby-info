@@ -58,8 +58,7 @@ module VersInfo
       highlight "\n#{RUBY_DESCRIPTION}"
       puts
       puts " Build Type/Info: #{ri2_vers}" if WIN
-      gcc = RbConfig::CONFIG["CC_VERSION_MESSAGE"] ?
-        RbConfig::CONFIG["CC_VERSION_MESSAGE"][/\A.+?\n/].strip : 'unknown'
+      gcc = RbConfig::CONFIG.fetch('CC_VERSION_MESSAGE', 'unknown')[/[^\n]+/]
       puts "        gcc info: #{gcc}"
       puts "RbConfig::TOPDIR: #{RbConfig::TOPDIR}"
       unless File.realpath(RbConfig::TOPDIR) == RbConfig::TOPDIR

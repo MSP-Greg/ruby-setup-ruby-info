@@ -5,7 +5,7 @@ on: [push]
 jobs:
   build:
     name: >-
-      ${{ matrix.ruby }} ${{ matrix.os }}
+      ${{ matrix.ruby }} ${{ env.ImageOS }}
     strategy:
       fail-fast: false
       matrix:
