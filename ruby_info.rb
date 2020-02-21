@@ -57,6 +57,8 @@ module VersInfo
 
       highlight "\n#{RUBY_DESCRIPTION}"
       puts
+      puts "    ImageOS: #{ENV.fetch('ImageOS', 'undefined')}"
+      puts "    ImageVersion: #{ENV.fetch('ImageVersion', 'undefined')}"
       puts " Build Type/Info: #{ri2_vers}" if WIN
       gcc = RbConfig::CONFIG.fetch('CC_VERSION_MESSAGE', 'unknown')[/[^\n]+/]
       puts "        gcc info: #{gcc}"
