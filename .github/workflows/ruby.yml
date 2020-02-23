@@ -1,20 +1,37 @@
-name: ruby/setup-ruby
+name: CI
 
 on: [push]
 
 jobs:
-  build:
+  unbuntu_macOS:
     name: >-
       ${{ matrix.ruby }} ${{ matrix.os }}
     strategy:
       fail-fast: false
       matrix:
-        os: [ ubuntu-18.04, ubuntu-16.04, macos-latest, windows-latest ]
+        os: [ ubuntu-18.04, ubuntu-16.04, macos-latest ]
         ruby: [ ruby-head, 2.7, 2.6, 2.5, 2.4, 2.3, 2.2, jruby, truffleruby ]
-        exclude:
-          - os:   windows-latest
-            ruby: truffleruby
-          
+    runs-on: ${{ matrix.os }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Ruby Install
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: ${{ matrix.ruby }}
+
+      - name: Ruby Info
+        run:  ruby ruby_info.rb
+
+  win32:
+    name: >-
+      ${{ matrix.ruby }} ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ windows-latest ]
+        ruby: [ ruby-head, 2.7, 2.6, 2.6.0, 2.5, 2.5.0, 2.4, 2.4.1, 2.3, 2.2 ]
     runs-on: ${{ matrix.os }}
     steps:
       - name: Checkout
