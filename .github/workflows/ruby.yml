@@ -5,7 +5,7 @@ on: [push]
 jobs:
   unbuntu_macOS:
     name: >-
-      ${{ matrix.ruby }} ${{ matrix.os }}
+      ${{ matrix.os }} ${{ matrix.ruby }}
     strategy:
       fail-fast: false
       matrix:
@@ -26,13 +26,13 @@ jobs:
 
   win32:
     name: >-
-      ${{ matrix.ruby }} ${{ matrix.os }}
+      ${{ matrix.os }} ${{ matrix.ruby }}
     strategy:
       fail-fast: false
       matrix:
-        os: [ windows-latest ]
-        ruby: [ ruby-head, 2.7, 2.6, 2.6.0, 2.5, 2.5.0, 2.4, 2.4.1, 2.3, 2.2 ]
-    runs-on: ${{ matrix.os }}
+        os: [ windows ]
+        ruby: [ mswin, mingw, 2.7, 2.6, 2.6.0, 2.5, 2.5.0, 2.4, 2.4.1, 2.3, 2.2 ]
+    runs-on: ${{ matrix.os }}-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v2
