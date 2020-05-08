@@ -36,7 +36,8 @@ module TestSSL
           [:SSLv3_server  , 'SSLv3'  ],
           [:TLSv1_server  , 'TLSv1'  ],
           [:TLSv1_1_server, 'TLSv1_1'],
-          [:TLSv1_2_server, 'TLSv1_2']
+          [:TLSv1_2_server, 'TLSv1_2'],
+          [:TLSv1_3_server, 'TLSv1_3']
         ]
       end
       # Prepare for testing & do sanity check
